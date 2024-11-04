@@ -4,6 +4,41 @@ let canvas;
 let ctx;
 let logoColor;
 
+document.getElementById("fullscreen-btn").addEventListener("click", toggleFullscreen);
+
+function toggleFullscreen() {
+    let elem = document.documentElement;
+
+    if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+}
+
+// Listen for fullscreen change events to update canvas size
+document.addEventListener("fullscreenchange", () => {
+    const fullscreenBtn = document.getElementById("fullscreen-btn");
+    if (document.fullscreenElement) {
+        fullscreenBtn.classList.add("fullscreen-hidden");
+    } else {
+        fullscreenBtn.classList.remove("fullscreen-hidden");
+    }
+    resizeCanvas(); // Adjust canvas size when entering/exiting fullscreen
+});
+
+// Listen for window resize events to keep canvas updated
+window.addEventListener("resize", resizeCanvas);
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
 let dvd = {
     x: 200,
     y: 300,
@@ -11,6 +46,7 @@ let dvd = {
     yspeed: 4,
     img: new Image()
 };
+
 
 (function main(){
     canvas = document.getElementById("tv-screen");

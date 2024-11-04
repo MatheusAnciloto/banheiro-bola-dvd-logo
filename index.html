@@ -3,10 +3,28 @@
         <title>Banheiro Bola Logo</title>
         <style>
             * {margin:0; padding: 0; color:red;}
+
+            #fullscreen-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                z-index: 10; /* Keep it on top of other elements */
+            }
+
+            #fullscreen-btn.fullscreen-hidden {
+                display: none;
+            }
         </style>
     </head>
 
     <body>
+        <button id="fullscreen-btn">⛶</button>
         <canvas id="tv-screen"></canvas>
         <script src="js/app.js"></script>
     </body>
